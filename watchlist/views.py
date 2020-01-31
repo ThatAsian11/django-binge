@@ -21,7 +21,7 @@ def index(request):
 def search(request):
     # Passes the query to search function and returns JSON response
     if request.method == 'POST':
-        print("received")
+        # print("received")
         a = request.POST.get('search_query')
         query = Search.all_search(a)
         # If search fails or there are no matches to query, alert user
