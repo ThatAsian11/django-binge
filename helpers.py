@@ -1,22 +1,13 @@
 import os
 import json
-import http.client
 import requests
 
-# conn = http.client.HTTPSConnection("api.themoviedb.org")
 url = "https://api.themoviedb.org"
 api = os.getenv("API")
-# print(api)
 
 # Fetches the required data from the api when the path url is provided and returns it as JSON
 def get_items(path):
     try:
-        # payload = "{}"
-        # conn.request("GET", path, payload)
-        # res = conn.getresponse()
-        # data = res.read()
-        # items = json.loads(data)
-        # print(items)
         location = url + path
         r = requests.get(location)
         items = r.json()
