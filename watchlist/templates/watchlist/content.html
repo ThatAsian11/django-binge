@@ -8,7 +8,79 @@
   background-image: url("https://image.tmdb.org/t/p/w1280/{{ items.backdrop_path }}");
 }
 </style>
-<div class="container backdrop" style="min-height:90vh; position: relative;">
+<!-- <div class="container" > -->
+<div class="container backdrop rounded  mt-5 p-2", style="width:1183px;height:665px">
+  <div class="row no-gutters">
+    <div class="col-sm-3">
+      <img class="card-img rounded"  src="https://image.tmdb.org/t/p/w342/{{ items.poster_path }}">
+    </div>
+    <div class="col-md-8 ml-5" style="opacity: 0.9;">
+      <div class="card-body bg-light rounded">
+
+        {% if items.title %}
+        <h2 class="display-3 text-center">{{ items.title }}</h2>
+        <p class="h6 text-break text-center text-light bg-secondary p-2 rounded">| 
+          {% for i in items.genres %}
+          {{ i.name }} |
+          {% endfor %}
+        </p>
+        <br>
+        <p class="card-text">{{ items.overview }}</p>
+        <hr>
+        <p class="text-muted">Released: {{ items.release_date }}</p>
+        <p class="text-muted">Run time: {{ items.runtime }} minutes</p>
+        <p class="text-muted">Rating: {{ items.vote_average }}/10</p>
+
+        {% else %}
+        <h2 class="display-3 text-center">{{ items.name }} </h2>
+        <p class="h6 text-break text-center text-light bg-secondary p-2 rounded">| 
+          {% for i in items.genres %}
+          {{ i.name }} |
+          {% endfor %}
+        </p>
+        <span class="badge badge-pill badge-info">{{ items.status }}</span>
+        <br>
+        <p class="card-text">{{ items.overview }}</p>
+        <hr>
+        <p class="text-muted">Number of Seasons: {{ items.number_of_seasons }}</p>
+        <p class="text-muted">First Aired: {{ items.first_air_date }}</p>
+        <p class="text-muted">Last Aired: {{ items.last_air_date }}</p>
+        <p class="text-muted">Run time: {{ items.episode_run_time }} minutes</p>
+        <p class="text-muted">Rating: {{ items.vote_average }}/10</p>
+        <p class="text-muted">Created by:
+          {% for i in items.created_by %}
+          {{ i.name }} |
+          {% endfor %}
+        </p>
+        {% endif %}
+
+      {% if added %}
+      <button type="button" class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Already added to watchlist">
+        <i class="fas fa-check"></i>
+      </button>
+      {% else %}
+      <form method="post" action="{% url 'watchlist' %}">
+      {% csrf_token %}
+      <input type="hidden" value="{{ items.id }}" name="content_id"/>
+      {% if items.title %}
+      <input type="hidden" value="{{ items.title }}" name="content_title"/>
+      <input type="hidden" value="movie" name="content_type"/>
+      {% else %}
+      <input type="hidden" value="{{ items.name }}" name="content_title"/>
+      <input type="hidden" value="tv" name="content_type"/>
+      {% endif %}
+      <button type="sumbit" class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Add to watchlist"><i class="fas fa-plus"></i>
+</button>
+      </form>
+      {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+
+<!-- <div class="container backdrop" style="min-height:90vh; position: relative;">
   <div id="content_data">
   <img class="card-img-top poster" src="https://image.tmdb.org/t/p/w342/{{ items.poster_path }}">
   </div>
@@ -64,5 +136,5 @@
       {% endif %}
       </div>
   </div>
-</div>
+</div> -->
 {% endblock %}

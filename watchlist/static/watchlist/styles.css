@@ -81,14 +81,6 @@ h3 {
 .poster {
   border-radius: 5px;
 }
-#content_data {
-  float: left;
-  position: absolute;
-  height: 80%;
-  width: 20vw;
-  overflow: hidden;
-  margin: 5px;
-}
 #content_info {
   float: right;
   margin-left: 30%;
